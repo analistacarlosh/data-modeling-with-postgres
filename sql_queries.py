@@ -22,7 +22,7 @@ song_table_create = ("CREATE TABLE IF NOT EXISTS songs"\
 " year INT NOT NULL, duration FLOAT NOT NULL)")
 
 time_table_create = ("CREATE TABLE IF NOT EXISTS time"\
-" (start_time INT PRIMARY KEY, hour INT,"\
+" (time_id SERIAL PRIMARY KEY, start_time TIME, hour INT,"\
 " day VARCHAR, week INT, month INT, year INT, "\
 " weekday INT)")
 
