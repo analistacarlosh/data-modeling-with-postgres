@@ -27,7 +27,7 @@ time_table_create = ("CREATE TABLE IF NOT EXISTS time"\
 " weekday INT)")
 
 songplay_table_create = ("CREATE TABLE songplays"\
-" (songplay_id INT PRIMARY KEY, start_time TIME,"\
+" (songplay_id SERIAL PRIMARY KEY, start_time TIME,"\
 " user_id INT REFERENCES users ON DELETE CASCADE,"\
 " level VARCHAR,"\
 " song_id VARCHAR REFERENCES songs ON DELETE CASCADE,"\
@@ -53,14 +53,13 @@ time_table_insert = ("INSERT INTO time"\
 " VALUES (%s, %s, %s, %s, %s, %s, %s)")
 
 songplay_table_insert = ("INSERT INTO songplays"\
-" (songplay_id, start_time, user_id, level, song_id, artist_id, session_id)"\
-" VALUES (%s, %s, %s, %s, %s, %s, %s)")
+" (start_time, user_id, level, song_id, artist_id, session_id)"\
+" VALUES (%s, %s, %s, %s, %s, %s)")
 
 # FIND SONGS
-
-song_select = ("SELECT * FROM songs")
+song_select = ("""
+SELECT s.song_id, s.artist_id, a.name FROM songs as s LEFT JOIN artists as a ON s.artist_id = a.artists_id WHERE s.title = %s AND a.name = %s AND s.duration = %s """)
 
 # QUERY LISTS
-
 create_table_queries = [user_table_create, artist_table_create, song_table_create, time_table_create, songplay_table_create]
 drop_table_queries = [songplay_table_drop, time_table_drop, song_table_drop, artist_table_drop, user_table_drop]
